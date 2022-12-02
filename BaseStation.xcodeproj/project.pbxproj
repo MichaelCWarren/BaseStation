@@ -1,0 +1,559 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		48038E0A293940F500107B26 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48038E09293940F500107B26 /* DataExtensions.swift */; };
+		48038E0C2939412700107B26 /* DroneDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48038E0B2939412700107B26 /* DroneDataPoint.swift */; };
+		48038E0E293941AC00107B26 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48038E0D293941AC00107B26 /* DataStore.swift */; };
+		48038E132939874A00107B26 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48038E122939874A00107B26 /* Joystick.swift */; };
+		48112F06293A8168006FA22C /* BaseStation_RemoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48112F05293A8168006FA22C /* BaseStation_RemoteApp.swift */; };
+		48112F0A293A816A006FA22C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48112F09293A816A006FA22C /* Assets.xcassets */; };
+		48112F0D293A816A006FA22C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48112F0C293A816A006FA22C /* Preview Assets.xcassets */; };
+		48112F12293A81C5006FA22C /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48038E09293940F500107B26 /* DataExtensions.swift */; };
+		48112F13293A81C8006FA22C /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489C5FE4293907EE00BE0E1A /* ViewModel.swift */; };
+		48112F14293A81CB006FA22C /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48038E0D293941AC00107B26 /* DataStore.swift */; };
+		48112F15293A81CD006FA22C /* DroneDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48038E0B2939412700107B26 /* DroneDataPoint.swift */; };
+		48112F17293A820F006FA22C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48112F16293A820F006FA22C /* ContentView.swift */; };
+		489C5FD6293907D600BE0E1A /* BaseStationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489C5FD5293907D600BE0E1A /* BaseStationApp.swift */; };
+		489C5FD8293907D600BE0E1A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489C5FD7293907D600BE0E1A /* ContentView.swift */; };
+		489C5FDA293907D800BE0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 489C5FD9293907D800BE0E1A /* Assets.xcassets */; };
+		489C5FDD293907D800BE0E1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 489C5FDC293907D800BE0E1A /* Preview Assets.xcassets */; };
+		489C5FE5293907EE00BE0E1A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489C5FE4293907EE00BE0E1A /* ViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		48038E09293940F500107B26 /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
+		48038E0B2939412700107B26 /* DroneDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneDataPoint.swift; sourceTree = "<group>"; };
+		48038E0D293941AC00107B26 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		48038E122939874A00107B26 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
+		48112F03293A8168006FA22C /* BaseStation-Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BaseStation-Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		48112F05293A8168006FA22C /* BaseStation_RemoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStation_RemoteApp.swift; sourceTree = "<group>"; };
+		48112F09293A816A006FA22C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		48112F0C293A816A006FA22C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		48112F16293A820F006FA22C /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		489C5FD2293907D600BE0E1A /* BaseStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaseStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		489C5FD5293907D600BE0E1A /* BaseStationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStationApp.swift; sourceTree = "<group>"; };
+		489C5FD7293907D600BE0E1A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		489C5FD9293907D800BE0E1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		489C5FDC293907D800BE0E1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		489C5FDE293907D800BE0E1A /* BaseStation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BaseStation.entitlements; sourceTree = "<group>"; };
+		489C5FE4293907EE00BE0E1A /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		48112F00293A8168006FA22C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		489C5FCF293907D600BE0E1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		48112F04293A8168006FA22C /* BaseStation-Remote */ = {
+			isa = PBXGroup;
+			children = (
+				48112F16293A820F006FA22C /* ContentView.swift */,
+				48112F05293A8168006FA22C /* BaseStation_RemoteApp.swift */,
+				48112F09293A816A006FA22C /* Assets.xcassets */,
+				48112F0B293A816A006FA22C /* Preview Content */,
+			);
+			path = "BaseStation-Remote";
+			sourceTree = "<group>";
+		};
+		48112F0B293A816A006FA22C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				48112F0C293A816A006FA22C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		48112F11293A8199006FA22C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				48038E09293940F500107B26 /* DataExtensions.swift */,
+				489C5FE4293907EE00BE0E1A /* ViewModel.swift */,
+				48038E0D293941AC00107B26 /* DataStore.swift */,
+				48038E0B2939412700107B26 /* DroneDataPoint.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		489C5FC9293907D600BE0E1A = {
+			isa = PBXGroup;
+			children = (
+				48112F11293A8199006FA22C /* Shared */,
+				489C5FD4293907D600BE0E1A /* BaseStation */,
+				48112F04293A8168006FA22C /* BaseStation-Remote */,
+				489C5FD3293907D600BE0E1A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		489C5FD3293907D600BE0E1A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				489C5FD2293907D600BE0E1A /* BaseStation.app */,
+				48112F03293A8168006FA22C /* BaseStation-Remote.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		489C5FD4293907D600BE0E1A /* BaseStation */ = {
+			isa = PBXGroup;
+			children = (
+				489C5FD5293907D600BE0E1A /* BaseStationApp.swift */,
+				489C5FD7293907D600BE0E1A /* ContentView.swift */,
+				489C5FD9293907D800BE0E1A /* Assets.xcassets */,
+				489C5FDE293907D800BE0E1A /* BaseStation.entitlements */,
+				489C5FDB293907D800BE0E1A /* Preview Content */,
+				48038E122939874A00107B26 /* Joystick.swift */,
+			);
+			path = BaseStation;
+			sourceTree = "<group>";
+		};
+		489C5FDB293907D800BE0E1A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				489C5FDC293907D800BE0E1A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		48112F02293A8168006FA22C /* BaseStation-Remote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48112F10293A816A006FA22C /* Build configuration list for PBXNativeTarget "BaseStation-Remote" */;
+			buildPhases = (
+				48112EFF293A8168006FA22C /* Sources */,
+				48112F00293A8168006FA22C /* Frameworks */,
+				48112F01293A8168006FA22C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "BaseStation-Remote";
+			productName = "BaseStation-Remote";
+			productReference = 48112F03293A8168006FA22C /* BaseStation-Remote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		489C5FD1293907D600BE0E1A /* BaseStation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 489C5FE1293907D800BE0E1A /* Build configuration list for PBXNativeTarget "BaseStation" */;
+			buildPhases = (
+				489C5FCE293907D600BE0E1A /* Sources */,
+				489C5FCF293907D600BE0E1A /* Frameworks */,
+				489C5FD0293907D600BE0E1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BaseStation;
+			packageProductDependencies = (
+			);
+			productName = BaseStation;
+			productReference = 489C5FD2293907D600BE0E1A /* BaseStation.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		489C5FCA293907D600BE0E1A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1410;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					48112F02293A8168006FA22C = {
+						CreatedOnToolsVersion = 14.1;
+					};
+					489C5FD1293907D600BE0E1A = {
+						CreatedOnToolsVersion = 14.0;
+					};
+				};
+			};
+			buildConfigurationList = 489C5FCD293907D600BE0E1A /* Build configuration list for PBXProject "BaseStation" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 489C5FC9293907D600BE0E1A;
+			packageReferences = (
+				48038E0F29397DD300107B26 /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */,
+			);
+			productRefGroup = 489C5FD3293907D600BE0E1A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				489C5FD1293907D600BE0E1A /* BaseStation */,
+				48112F02293A8168006FA22C /* BaseStation-Remote */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		48112F01293A8168006FA22C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48112F0D293A816A006FA22C /* Preview Assets.xcassets in Resources */,
+				48112F0A293A816A006FA22C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		489C5FD0293907D600BE0E1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				489C5FDD293907D800BE0E1A /* Preview Assets.xcassets in Resources */,
+				489C5FDA293907D800BE0E1A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		48112EFF293A8168006FA22C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48112F06293A8168006FA22C /* BaseStation_RemoteApp.swift in Sources */,
+				48112F13293A81C8006FA22C /* ViewModel.swift in Sources */,
+				48112F17293A820F006FA22C /* ContentView.swift in Sources */,
+				48112F14293A81CB006FA22C /* DataStore.swift in Sources */,
+				48112F12293A81C5006FA22C /* DataExtensions.swift in Sources */,
+				48112F15293A81CD006FA22C /* DroneDataPoint.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		489C5FCE293907D600BE0E1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48038E132939874A00107B26 /* Joystick.swift in Sources */,
+				489C5FD8293907D600BE0E1A /* ContentView.swift in Sources */,
+				48038E0A293940F500107B26 /* DataExtensions.swift in Sources */,
+				48038E0C2939412700107B26 /* DroneDataPoint.swift in Sources */,
+				489C5FE5293907EE00BE0E1A /* ViewModel.swift in Sources */,
+				48038E0E293941AC00107B26 /* DataStore.swift in Sources */,
+				489C5FD6293907D600BE0E1A /* BaseStationApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		48112F0E293A816A006FA22C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BaseStation-Remote/Preview Content\"";
+				DEVELOPMENT_TEAM = 4SM26M549P;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Talk to drone";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Talk to drone";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Track you";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Track you";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Track you";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Track you";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.michaelcwarren.BaseStation-Remote";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		48112F0F293A816A006FA22C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BaseStation-Remote/Preview Content\"";
+				DEVELOPMENT_TEAM = 4SM26M549P;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Talk to drone";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Talk to drone";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Track you";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Track you";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Track you";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Track you";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.michaelcwarren.BaseStation-Remote";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		489C5FDF293907D800BE0E1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		489C5FE0293907D800BE0E1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		489C5FE2293907D800BE0E1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BaseStation/BaseStation.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BaseStation/Preview Content\"";
+				DEVELOPMENT_TEAM = 4SM26M549P;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Connect to drone";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Connect to drone";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.michaelcwarren.BaseStation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		489C5FE3293907D800BE0E1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BaseStation/BaseStation.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BaseStation/Preview Content\"";
+				DEVELOPMENT_TEAM = 4SM26M549P;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Connect to drone";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Connect to drone";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.michaelcwarren.BaseStation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		48112F10293A816A006FA22C /* Build configuration list for PBXNativeTarget "BaseStation-Remote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48112F0E293A816A006FA22C /* Debug */,
+				48112F0F293A816A006FA22C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		489C5FCD293907D600BE0E1A /* Build configuration list for PBXProject "BaseStation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				489C5FDF293907D800BE0E1A /* Debug */,
+				489C5FE0293907D800BE0E1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		489C5FE1293907D800BE0E1A /* Build configuration list for PBXNativeTarget "BaseStation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				489C5FE2293907D800BE0E1A /* Debug */,
+				489C5FE3293907D800BE0E1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		48038E0F29397DD300107B26 /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/michael94ellis/SwiftUIJoystick";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+	};
+	rootObject = 489C5FCA293907D600BE0E1A /* Project object */;
+}
