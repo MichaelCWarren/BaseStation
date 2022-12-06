@@ -6,30 +6,17 @@
 //
 
 import SwiftUI
-import MapKit
-
 
 struct ContentView: View {
     @StateObject var viewModel = ViewModel()
     
     var body: some View {
         ZStack {
-            Map(coordinateRegion: $viewModel.region, showsUserLocation: true,  annotationItems: [viewModel.droneAnnotation]) { drone in
-                MapMarker(coordinate: drone.location)
-            }
-            .edgesIgnoringSafeArea(.all)
-            
+            DroneMapView(viewModel: viewModel)
+                .edgesIgnoringSafeArea(.all)
+
             if let dataPoint = viewModel.currentDroneDataPoint {
                 VStack {
-                    HStack {
-                        Button("Reset Map") {
-                            viewModel.resetMins()
-                        }
-                        Spacer()
-                        Button("Toggle Updates") {
-                            viewModel.toggleRegionUpdates()
-                        }
-                    }.padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
                     HStack {
                         Grid {
                             GridRow {
@@ -53,7 +40,6 @@ struct ContentView: View {
                             
                         }
                     }.padding(EdgeInsets(top: 10, leading: 30, bottom: 0, trailing: 30))
-                    
                     Spacer()
                     HStack {
                         Grid {
@@ -74,18 +60,17 @@ struct ContentView: View {
                         Grid {
                             GridRow {
                                 Text("Distance To Home:").font(.title2).gridColumnAlignment(.trailing)
-                                Text("\(dataPoint.distanceToHome) m").font(.title2).gridColumnAlignment(.leading)
+                                Text("\(dataPoint.home_distance) m").font(.title2).gridColumnAlignment(.leading)
                             }
                             GridRow {
                                 Text("Direction To Home:").font(.title2).gridColumnAlignment(.trailing)
-                                Text("\(dataPoint.directionToHome)").font(.title2).gridColumnAlignment(.leading)
+                                Text("\(dataPoint.home_direction)").font(.title2).gridColumnAlignment(.leading)
                             }
                             
                         }
                     }.padding(30)
-                }
+                }.foregroundColor(.white)
             }
-           
         }
     }
 }

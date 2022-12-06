@@ -24,6 +24,10 @@
 		489C5FDA293907D800BE0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 489C5FD9293907D800BE0E1A /* Assets.xcassets */; };
 		489C5FDD293907D800BE0E1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 489C5FDC293907D800BE0E1A /* Preview Assets.xcassets */; };
 		489C5FE5293907EE00BE0E1A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489C5FE4293907EE00BE0E1A /* ViewModel.swift */; };
+		48EC1BD5293D420900011BEB /* DroneMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EC1BD4293D420900011BEB /* DroneMapView.swift */; };
+		48EC1BD6293D420900011BEB /* DroneMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EC1BD4293D420900011BEB /* DroneMapView.swift */; };
+		48EC1BD9293D505B00011BEB /* MacOSMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EC1BD8293D505B00011BEB /* MacOSMapView.swift */; };
+		48EC1BDB293D507000011BEB /* iOSMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EC1BDA293D507000011BEB /* iOSMapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +47,9 @@
 		489C5FDC293907D800BE0E1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		489C5FDE293907D800BE0E1A /* BaseStation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BaseStation.entitlements; sourceTree = "<group>"; };
 		489C5FE4293907EE00BE0E1A /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		48EC1BD4293D420900011BEB /* DroneMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneMapView.swift; sourceTree = "<group>"; };
+		48EC1BD8293D505B00011BEB /* MacOSMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSMapView.swift; sourceTree = "<group>"; };
+		48EC1BDA293D507000011BEB /* iOSMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSMapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +92,7 @@
 		48112F11293A8199006FA22C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				48EC1BD3293D41E500011BEB /* Views */,
 				48038E09293940F500107B26 /* DataExtensions.swift */,
 				489C5FE4293907EE00BE0E1A /* ViewModel.swift */,
 				48038E0D293941AC00107B26 /* DataStore.swift */,
@@ -131,6 +139,16 @@
 				489C5FDC293907D800BE0E1A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		48EC1BD3293D41E500011BEB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				48EC1BD4293D420900011BEB /* DroneMapView.swift */,
+				48EC1BD8293D505B00011BEB /* MacOSMapView.swift */,
+				48EC1BDA293D507000011BEB /* iOSMapView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,9 +259,11 @@
 				48112F06293A8168006FA22C /* BaseStation_RemoteApp.swift in Sources */,
 				48112F13293A81C8006FA22C /* ViewModel.swift in Sources */,
 				48112F17293A820F006FA22C /* ContentView.swift in Sources */,
+				48EC1BD6293D420900011BEB /* DroneMapView.swift in Sources */,
 				48112F14293A81CB006FA22C /* DataStore.swift in Sources */,
 				48112F12293A81C5006FA22C /* DataExtensions.swift in Sources */,
 				48112F15293A81CD006FA22C /* DroneDataPoint.swift in Sources */,
+				48EC1BDB293D507000011BEB /* iOSMapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,9 +274,11 @@
 				48038E132939874A00107B26 /* Joystick.swift in Sources */,
 				489C5FD8293907D600BE0E1A /* ContentView.swift in Sources */,
 				48038E0A293940F500107B26 /* DataExtensions.swift in Sources */,
+				48EC1BD9293D505B00011BEB /* MacOSMapView.swift in Sources */,
 				48038E0C2939412700107B26 /* DroneDataPoint.swift in Sources */,
 				489C5FE5293907EE00BE0E1A /* ViewModel.swift in Sources */,
 				48038E0E293941AC00107B26 /* DataStore.swift in Sources */,
+				48EC1BD5293D420900011BEB /* DroneMapView.swift in Sources */,
 				489C5FD6293907D600BE0E1A /* BaseStationApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,7 +294,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BaseStation-Remote/Preview Content\"";
-				DEVELOPMENT_TEAM = 4SM26M549P;
+				DEVELOPMENT_TEAM = 9ZAJ778NEX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Talk to drone";
@@ -292,7 +314,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.michaelcwarren.BaseStation-Remote";
+				PRODUCT_BUNDLE_IDENTIFIER = com.michaelcwarren.BaseStationRemote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -309,7 +331,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BaseStation-Remote/Preview Content\"";
-				DEVELOPMENT_TEAM = 4SM26M549P;
+				DEVELOPMENT_TEAM = 9ZAJ778NEX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Talk to drone";
@@ -329,7 +351,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.michaelcwarren.BaseStation-Remote";
+				PRODUCT_BUNDLE_IDENTIFIER = com.michaelcwarren.BaseStationRemote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -462,7 +484,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BaseStation/Preview Content\"";
-				DEVELOPMENT_TEAM = 4SM26M549P;
+				DEVELOPMENT_TEAM = 9ZAJ778NEX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -492,7 +514,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BaseStation/Preview Content\"";
-				DEVELOPMENT_TEAM = 4SM26M549P;
+				DEVELOPMENT_TEAM = 9ZAJ778NEX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

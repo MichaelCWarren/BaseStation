@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 
 struct DataPoint<T> : Identifiable {
     var id: UUID = UUID()
@@ -22,15 +23,10 @@ struct DroneDataPoint : Identifiable
     var armingStatus: UInt16 = 0
     var status: UInt8 = 0
     var batteryPercentage: UInt8 = 0
-    var distanceToHome: UInt16 = 0
-    var directionToHome: Int16 = 0
-    var gps_fix_type: UInt8 = 0
+    var home_distance: UInt16 = 0
+    var home_direction: Int16 = 0
+    
     var gps_number_satellites: UInt8 = 0
-    var inav_mode: UInt8 = 0
-    var inav_state: UInt8 = 0
-    var inav_wp_action: UInt8 = 0
-    var inav_wp_number: UInt8 = 0
-    var inav_heading_target: Int16 = 0
     var roll: Int16 = 0
     var pitch: Int16 = 0
     var yaw: Int16 = 0
@@ -55,7 +51,9 @@ struct DroneDataPoint : Identifiable
     var rx_pitch: Int16 = 0
     var rx_yaw: Int16 = 0
     var rx_throttle: Int16 = 0
-    var throttlePercent: Int8 = 0
+    var home_latitude: Int32 = 0
+    var home_longitude: Int32 = 0
+    var home_altitude_meters: Int32 = 0
     var rssi: Int8 = 0
     
     var armingStatusText: (String, Color) {
@@ -79,11 +77,15 @@ struct DroneDataPoint : Identifiable
     }
     
     var gpsAltitudeDataPoint: DataPoint<Int32> {
-        return DataPoint(time: onTime, name: "GPS", value: Int32(gps_altitude_meters))
+        return DataPoint(time: onTime, name: "GPS", value: Int32(gps_altitude_meters) - Int32(home_altitude_meters))
     }
     
     var baroAltitudeDataPoint: DataPoint<Int32> {
         return DataPoint(time: onTime, name: "Barometer", value: baro_altitude_meters)
+    }
+    
+    var calculatedAltitudeDataPoint: DataPoint<Int32> {
+        return DataPoint(time: onTime, name: "iNav", value: inav_z_position)
     }
     
     var gyroXDataPoint: DataPoint<Int16> {
@@ -114,6 +116,10 @@ struct DroneDataPoint : Identifiable
         return DataPoint(time: onTime, name: "Z", value: acc_z)
     }
     
+    var gpsLocation: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: Double(gps_latitude) / Double(10000000), longitude: Double(gps_longitude) / Double(10000000))
+    }
+    
     init() {
         
     }
@@ -131,15 +137,9 @@ struct DroneDataPoint : Identifiable
         read(val: &armingStatus, data: data, index: &index)
         read(val: &status, data: data, index: &index)
         read(val: &batteryPercentage, data: data, index: &index)
-        read(val: &distanceToHome, data: data, index: &index)
-        read(val: &directionToHome, data: data, index: &index)
-        read(val: &gps_fix_type, data: data, index: &index)
+        read(val: &home_distance, data: data, index: &index)
+        read(val: &home_direction, data: data, index: &index)
         read(val: &gps_number_satellites, data: data, index: &index)
-        read(val: &inav_mode, data: data, index: &index)
-        read(val: &inav_state, data: data, index: &index)
-        read(val: &inav_wp_action, data: data, index: &index)
-        read(val: &inav_wp_number, data: data, index: &index)
-        read(val: &inav_heading_target, data: data, index: &index)
         read(val: &roll, data: data, index: &index)
         read(val: &pitch, data: data, index: &index)
         read(val: &yaw, data: data, index: &index)
@@ -164,11 +164,12 @@ struct DroneDataPoint : Identifiable
         read(val: &rx_pitch, data: data, index: &index)
         read(val: &rx_yaw, data: data, index: &index)
         read(val: &rx_throttle, data: data, index: &index)
-        read(val: &throttlePercent, data: data, index: &index)
+        read(val: &home_latitude, data: data, index: &index)
+        read(val: &home_longitude, data: data, index: &index)
+        read(val: &home_altitude_meters, data: data, index: &index)
         read(val: &rssi, data: data, index: &index)
     }
    
-    
     func read(val: inout UInt32, data: [UInt8], index: inout Int) {
         val = UInt32(data[index++]) << 24 | UInt32(data[index++]) << 16 | UInt32(data[index++]) << 8 | UInt32(data[index++])
     }

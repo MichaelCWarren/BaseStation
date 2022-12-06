@@ -12,21 +12,30 @@ import MapKit
 struct ContentView: View {
     @StateObject var viewModel = ViewModel()
     
+    var updateFrequencyFormatted: String {
+        return viewModel.updateFrequency.formatted(.number.precision(.fractionLength(2)))
+    }
+    
+    var updatePeriodFormatted: String {
+        let period = Int(viewModel.updatePeriod * 1000)
+        return "\(period) ms"
+    }
+
     var body: some View {
         GeometryReader { metrics in
-            Grid(horizontalSpacing: 10, verticalSpacing: 10) {
+            Grid(horizontalSpacing: 20, verticalSpacing: 20) {
                 GridRow {
                     VStack {
                         Text("Altitude").font(.title)
                         Chart(viewModel.altitudeDataPoints) { dp in
-                            AreaMark(
+                            LineMark(
                                 x: .value("Time", Float(dp.time) / 1000.0),
                                 y: .value("Altitude", dp.value)
                             ).foregroundStyle(by: .value("Source", dp.name))
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
-                        
+                            .chartXAxisLabel("Time (seconds)")
+                            .chartYAxisLabel("Altitude (meters)")
                     }
-                    
                     VStack {
                         Text("Speed").font(.title)
                         Chart(viewModel.speedDataPoints) { dp in
@@ -35,6 +44,8 @@ struct ContentView: View {
                                 y: .value("m/s", dp.value)
                             )
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
+                            .chartXAxisLabel("Time (seconds)")
+                            .chartYAxisLabel("Speed (m/s)")
                     }
                     
                     VStack {
@@ -45,6 +56,8 @@ struct ContentView: View {
                                 y: .value("Value", dp.value)
                             ).foregroundStyle(by: .value("Axis", dp.name))
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
+                            .chartXAxisLabel("Time (seconds)")
+                            .chartYAxisLabel("Angular Velocity (deg/sec)")
                     }
                     
                     VStack {
@@ -55,6 +68,8 @@ struct ContentView: View {
                                 y: .value("Value", Float(dp.value) / 512.0)
                             ).foregroundStyle(by: .value("Axis", dp.name))
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
+                            .chartXAxisLabel("Time (seconds)")
+                            .chartYAxisLabel("Acceleration (g)")
                     }
                 }.frame(height: metrics.size.height * 0.35)
                 
@@ -118,85 +133,191 @@ struct ContentView: View {
                         }
                         Spacer()
                     }
-                    ZStack {
-                        Map(coordinateRegion: $viewModel.region, annotationItems: [viewModel.droneAnnotation]) { drone in
-                            MapMarker(coordinate: drone.location)
-                        }
-                        VStack {
-                            HStack {
-                                Button("Reset Mins") {
-                                    viewModel.resetMins()
-                                }
-                                Spacer()
-                                Button("Toggle Updates") {
-                                    viewModel.toggleRegionUpdates()
-                                }
-                            }.padding(10)
-                            Spacer()
-                        }
-                        
-                    }.gridCellColumns(2)
+                    DroneMapView(viewModel: viewModel)
+                        .gridCellColumns(2)
                     VStack {
                         Text("Raw Data").font(.title)
+                        Spacer()
                         if let droneDataPoint =  viewModel.currentDroneDataPoint {
-                            HStack {
-                                Text("On-time")
-                                Spacer()
-                                Text(droneDataPoint.formattedOnTime)
+                            Group {
+                                HStack {
+                                    Text("On-time")
+                                    Spacer()
+                                    Text(droneDataPoint.formattedOnTime)
+                                }
+                                Divider()
+                                HStack {
+                                    Text("Attitude")
+                                    Spacer()
+                                    Grid {
+                                        GridRow {
+                                            Text("Roll").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.roll)").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Pitch").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.pitch)").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Heading").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.yaw)").gridColumnAlignment(.trailing)
+                                        }
+                                    }
+                                    
+                                }
+                                Divider()
+                                HStack {
+                                    Text("Gyroscope")
+                                    Spacer()
+                                    Grid {
+                                        GridRow {
+                                            Text("X").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.gyro_x)").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Y").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.gyro_y)").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Z").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.gyro_z)").gridColumnAlignment(.trailing)
+                                        }
+                                    }
+                                    
+                                }
+                                Divider()
+                                HStack {
+                                    Text("Accelerometer")
+                                    Spacer()
+                                    Grid {
+                                        GridRow {
+                                            Text("X").gridColumnAlignment(.trailing)
+                                            Text("\(Double(droneDataPoint.acc_x)/512.0 )").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Y").gridColumnAlignment(.trailing)
+                                            Text("\(Double(droneDataPoint.acc_y)/512.0)").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Z").gridColumnAlignment(.trailing)
+                                            Text("\(Double(droneDataPoint.acc_x)/512.0)").gridColumnAlignment(.trailing)
+                                        }
+                                    }
+                                    
+                                }
+                                Divider()
                             }
-                            
-                            HStack {
-                                Text("Attitude")
-                                Spacer()
-                                Text("\(droneDataPoint.roll), \(droneDataPoint.pitch), \(droneDataPoint.yaw)")
+                            Group {
+                                HStack {
+                                    Text("Magnetometer")
+                                    Spacer()
+                                    Grid {
+                                        GridRow {
+                                            Text("X").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.mag_x )").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Y").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.mag_y)").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Z").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.mag_z)").gridColumnAlignment(.trailing)
+                                        }
+                                    }
+                                    
+                                }
+                                Divider()
+                                HStack {
+                                    Text("Altitude")
+                                    Spacer()
+                                    Grid {
+                                        GridRow {
+                                            Text("Barometer").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.baro_altitude_meters) m").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("GPS").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.gps_altitude_meters) m").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("iNav").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.inav_z_position) m").gridColumnAlignment(.trailing)
+                                        }
+                                    }
+                                }
+                                Divider()
+                                HStack {
+                                    Text("GPS")
+                                    Spacer()
+                                    Grid {
+                                        GridRow {
+                                            Text("Lat/Long").gridColumnAlignment(.trailing)
+                                            Text("\(viewModel.droneLatitude), \(viewModel.droneLongitude)").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Speed").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.gps_groundSpeed) m/s").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Satellites").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.gps_number_satellites)").gridColumnAlignment(.trailing)
+                                        }
+                                    }
+                                }
+                               
                             }
-                            
-                            HStack {
-                                Text("Gyro")
-                                Spacer()
-                                Text("X: \(droneDataPoint.gyro_x) Y: \(droneDataPoint.gyro_y) Z: \(droneDataPoint.gyro_z)")
-                            }
-                            
-                            HStack {
-                                Text("Accelerometer")
-                                Spacer()
-                                Text("X: \(droneDataPoint.acc_x ) Y: \(droneDataPoint.acc_y) Z: \(droneDataPoint.acc_z)")
-                            }
-                            
-                            HStack {
-                                Text("Magnetometer")
-                                Spacer()
-                                Text("X: \(droneDataPoint.mag_x ) Y: \(droneDataPoint.mag_y) Z: \(droneDataPoint.mag_z)")
-                            }
-                            
-                            HStack {
-                                Text("Altitude")
-                                Spacer()
-                                Text("Baro - \(droneDataPoint.baro_altitude_meters) m, GPS - \(droneDataPoint.gps_altitude_meters) m")
-                            }
-                            
-                            HStack {
-                                Text("GPS")
-                                Spacer()
-                                Text("\(droneDataPoint.gps_latitude), \(droneDataPoint.gps_longitude), \(droneDataPoint.gps_groundSpeed) m/s")
-                            }
-                            
-                            HStack {
-                                Text("Battery")
-                                Spacer()
-                                Text("\(droneDataPoint.batteryPercentage) %")
-                            }
-                            
-                            HStack {
-                                Text("Home")
-                                Spacer()
-                                Text("\(droneDataPoint.distanceToHome)m @ \(droneDataPoint.directionToHome)")
-                            }
-                            
-                            HStack {
-                                Text("RSSI")
-                                Spacer()
-                                Text("\(droneDataPoint.rssi)")
+                            Group {
+                                Divider()
+                                HStack {
+                                    Text("Battery")
+                                    Spacer()
+                                    Text("\(droneDataPoint.batteryPercentage) %")
+                                }
+                                Divider()
+                                HStack {
+                                    Text("Home")
+                                    Spacer()
+                                    Grid {
+                                        GridRow {
+                                            Text("Lat/Long").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.home_latitude), \(droneDataPoint.home_longitude)").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Altitude").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.home_altitude_meters) m").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("∆").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.home_distance)m @ \(droneDataPoint.home_direction)").gridColumnAlignment(.trailing)
+                                        }
+                                    }
+                                }
+                                Divider()
+                                HStack {
+                                    Text("Update Statistics")
+                                    Spacer()
+                                    Grid {
+                                        GridRow {
+                                            Text("Frequency").gridColumnAlignment(.trailing)
+                                            Text("\(updateFrequencyFormatted) Hz").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Period").gridColumnAlignment(.trailing)
+                                            Text(updatePeriodFormatted).gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("Latency").gridColumnAlignment(.trailing)
+                                            Text("\(viewModel.latency) ms").gridColumnAlignment(.trailing)
+                                        }
+                                    }
+                                }
+                                Divider()
+                                HStack {
+                                    Text("RSSI")
+                                    Spacer()
+                                    Text("\(droneDataPoint.rssi)")
+                                }
                             }
                         } else {
                             Spacer()
@@ -205,7 +326,7 @@ struct ContentView: View {
                         }
                         
                         Spacer()
-                    }.font(.title).padding(15)
+                    }.font(Font.body).padding(15)
                 }
             }.padding(10)
         }

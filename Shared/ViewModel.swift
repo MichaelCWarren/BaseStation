@@ -10,27 +10,40 @@ import CoreBluetooth
 import MapKit
 import SwiftUI
 
-struct Drone : Identifiable {
-    let id = UUID()
+class Annotation : NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
     let name: String
-    var location: CLLocationCoordinate2D
+    var color: Color
+    var imageName: String
+    
+    init(name: String, coordinate: CLLocationCoordinate2D, color: Color, imageName: String) {
+        self.coordinate = coordinate
+        self.name = name
+        self.color = color
+        self.imageName = imageName
+    }
 }
 
 class ViewModel : DataStore, ObservableObject {
     private var centralManager: CBCentralManager?
     private var drone: CBPeripheral?
     private var locationManager = CLLocationManager()
-    private var userLocation = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    private var userLocation = CLLocationCoordinate2D(latitude: 40.0523124, longitude: -86.0468659)
     private var userAltitude: Double = 0
+    private var droneAnnotation = Annotation(name: "drone", coordinate: CLLocationCoordinate2D(latitude: 40.0523124, longitude: -86.0468659), color: Color.red, imageName: "paperplane.fill")
+    private var homeAnnotation = Annotation(name: "home", coordinate: CLLocationCoordinate2D(latitude: 40.0523124, longitude: -86.0468659), color: Color.blue, imageName: "house.fill")
     
-    @Published var latitude: Double = 0
-    @Published var longitude: Double = 0
-    @Published var region: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 0, longitudeDelta: 0))
-    @Published var droneAnnotation: Drone = Drone(name: "drone", location: CLLocationCoordinate2D(latitude: 0, longitude: 0))
+    @Published var region: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.0523124, longitude: -86.0468659), span: MKCoordinateSpan(latitudeDelta: 0, longitudeDelta: 0))
+    @Published var annotationItems: [Annotation] = []
     @Published var throttle: CGFloat = 0
     @Published var yaw: CGFloat = 0.5
     @Published var pitch: CGFloat = 0.5
     @Published var roll: CGFloat = 0.5
+    
+    @Published var droneLatitude: Double = 0
+    @Published var droneLongitude: Double = 0
+    @Published var homeLatitude: Double = 0
+    @Published var homeLongitude: Double = 0
     
     @Published var armingStatus = "UNKNOWN"
     @Published var armingStatusColor = Color.blue
@@ -50,10 +63,12 @@ class ViewModel : DataStore, ObservableObject {
     
     var updateRegion: Bool = true
     
+    var step = 0
     
     override init() {
         super.init()
-        
+        self.annotationItems.append(droneAnnotation)
+        self.annotationItems.append(homeAnnotation)
         centralManager = CBCentralManager(delegate: self, queue: nil)
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -94,12 +109,31 @@ class ViewModel : DataStore, ObservableObject {
                     self.pitch = CGFloat((Float(droneDataPoint.rx_pitch) - 1000.0) / 1000.0)
                     self.roll = CGFloat((Float(droneDataPoint.rx_roll) - 1000.0) / 1000.0)
                     
-                    self.latitude = Double(droneDataPoint.gps_latitude) / Double(10000000)
-                    self.longitude = Double(droneDataPoint.gps_longitude) / Double(10000000)
+                    self.droneLatitude = Double(droneDataPoint.gps_latitude) / Double(10000000)
+                    self.droneLongitude = Double(droneDataPoint.gps_longitude) / Double(10000000)
 
-                    self.droneAnnotation.location.latitude = self.latitude
-                    self.droneAnnotation.location.longitude = self.longitude
-
+                    self.homeLatitude = Double(droneDataPoint.home_latitude) / Double(10000000)
+                    self.homeLongitude = Double(droneDataPoint.home_longitude) / Double(10000000)
+                    
+                    var updated = false
+                    
+                    if self.droneLatitude != 0 {
+                        let newDroneLocation = CLLocationCoordinate2D(latitude: self.droneLatitude, longitude: self.droneLongitude)
+                        if self.droneAnnotation.coordinate.latitude != newDroneLocation.latitude || self.droneAnnotation.coordinate.longitude != newDroneLocation.longitude {
+                            updated = true
+                            self.droneAnnotation.coordinate = newDroneLocation
+                        }
+                    }
+                    
+                    if self.homeLatitude != 0 {
+                        let newHomeLocation = CLLocationCoordinate2D(latitude: self.homeLatitude, longitude: self.homeLongitude)
+                        if self.homeAnnotation.coordinate.latitude != newHomeLocation.latitude || self.homeAnnotation.coordinate.longitude != newHomeLocation.longitude {
+                            updated = true
+                            self.homeAnnotation.coordinate = newHomeLocation
+                        }
+                    }
+                    
+                    
                     let (text, color) = droneDataPoint.armingStatusText
                     self.armingStatus = text
                     self.armingStatusColor = color
@@ -110,8 +144,10 @@ class ViewModel : DataStore, ObservableObject {
                     self.isAccelActive = droneDataPoint.status & (1 << 5) > 0
                     self.isGyroActive = droneDataPoint.status & (1 << 6) > 0
                     
-                    if(self.updateRegion) {
-                        self.region = self.getRegion(coord1: self.droneAnnotation.location, coord2: self.userLocation)
+                    if self.updateRegion && updated {
+                        //throw this result away, sorta
+                        let _ = self.getRegion(coord1: self.homeAnnotation.coordinate, coord2: self.userLocation)
+                        self.region = self.getRegion(coord1: self.droneAnnotation.coordinate, coord2: self.userLocation)
                     }
                 }
             }

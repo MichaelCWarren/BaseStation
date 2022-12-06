@@ -7,26 +7,30 @@
 
 import Foundation
 import SwiftUI
+import MapKit
+import CoreLocation
 
 class DataStore : NSObject {
     private var droneData: [DroneDataPoint] = []
     private var range = 30000
     private var startDroneTime = UInt32.max
     private var startTime = Date.now
+    private var lastUpdateTime = Date.now
+    private var expectedTimeDelta: TimeInterval?
     
     @Published var altitudeDataPoints: [DataPoint<Int32>] = []
     @Published var gyroDataPoints: [DataPoint<Int16>] = []
     @Published var speedDataPoints: [DataPoint<Int16>] = []
     @Published var accelDataPoints: [DataPoint<Int16>] = []
+    @Published var fromTime = 0
+    @Published var toTime = 0
+    @Published var history: [CLLocationCoordinate2D] = []
+    @Published var updateFrequency: Double = 0
+    @Published var updatePeriod: Double = 0
+    @Published var latency: Int = 0
     
     var dataRange: ClosedRange<Int> {
-        if(!droneData.isEmpty) {
-            let first = Float(droneData.first!.onTime) / 1000.0
-            let last = Float(droneData.last!.onTime) / 1000.0
-            return  Int(first)...Int(max(last, 30))
-        } else {
-            return 0...30
-        }
+        return  Int(Double(fromTime) / 1000.0)...Int(max(30, Int(Double(toTime) / 1000.0)))
     }
     
     func add(data: DroneDataPoint) {
@@ -37,19 +41,56 @@ class DataStore : NSObject {
             gyroDataPoints.removeAll()
             speedDataPoints.removeAll()
             accelDataPoints.removeAll()
+            droneData = []
+            history = []
+            lastUpdateTime = Date.now
+            updatePeriod = 0
+            updateFrequency = 0
+            expectedTimeDelta = nil
         }
+        
+        let runningTime = Int(startTime.distance(to: Date.now) * 1000.0)
+        let droneRunningTime = Int(data.onTime - startDroneTime)
+        latency = abs(runningTime - droneRunningTime)
+        
+        self.updatePeriod = lastUpdateTime.distance(to: Date.now)
+        self.updateFrequency = self.updatePeriod != 0 ? 1.0 / self.updatePeriod : 0
+        self.lastUpdateTime = Date.now
+        
         var _data = data
+        
+        if let lastPoint = history.last {
+            let first = CLLocation(latitude: lastPoint.latitude, longitude: lastPoint.longitude)
+            let second = CLLocation(latitude: data.gpsLocation.latitude, longitude: data.gpsLocation.longitude)
+            
+            if first.distance(from: second) > 2 {
+                history.append(data.gpsLocation)
+            }
+        }
         
         _data.onTime = data.onTime - startDroneTime
         let earlyLimit = max(0, Int(_data.onTime) - range)
         
         droneData.append(_data)
-        droneData.removeAll { dp in
-            dp.onTime < earlyLimit
+        toTime = Int(_data.onTime)
+        
+        if earlyLimit == 0 {
+            fromTime = 0
+        } else {
+            let last = droneData.last { dp in
+                dp.onTime < earlyLimit
+            }
+            
+            if let last = last {
+                fromTime = Int(last.onTime)
+            } else {
+                fromTime = toTime
+            }
         }
         
         altitudeDataPoints.append(_data.gpsAltitudeDataPoint)
         altitudeDataPoints.append(_data.baroAltitudeDataPoint)
+        altitudeDataPoints.append(_data.calculatedAltitudeDataPoint)
         clamp(array: &altitudeDataPoints, earlyLimit: earlyLimit)
         
         gyroDataPoints.append(_data.gyroXDataPoint)
@@ -64,7 +105,6 @@ class DataStore : NSObject {
         accelDataPoints.append(_data.accelYDataPoint)
         accelDataPoints.append(_data.accelZDataPoint)
         clamp(array: &accelDataPoints, earlyLimit: earlyLimit)
-        
     }
     
     func clamp<T>(array: inout [DataPoint<T>], earlyLimit: Int) {
