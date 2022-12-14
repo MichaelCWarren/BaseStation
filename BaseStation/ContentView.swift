@@ -295,6 +295,12 @@ struct ContentView: View {
                                 }
                                 Divider()
                                 HStack {
+                                    Text("Flight Mode")
+                                    Spacer()
+                                    Text("")
+                                }
+                                Divider()
+                                HStack {
                                     Text("Update Statistics")
                                     Spacer()
                                     Grid {
@@ -316,8 +322,19 @@ struct ContentView: View {
                                 HStack {
                                     Text("RSSI")
                                     Spacer()
-                                    Text("\(droneDataPoint.rssi)")
+                                    Grid {
+                                        GridRow {
+                                            Text("LoRa").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.lora_rssi)").gridColumnAlignment(.trailing)
+                                        }
+                                        GridRow {
+                                            Text("TX").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.transmitter_rssi)").gridColumnAlignment(.trailing)
+                                        }
+                                    }
                                 }
+                                
+                                
                             }
                         } else {
                             Spacer()

@@ -62,8 +62,8 @@
             filePath = "Shared/DroneDataPoint.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "init(data:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "Shared/DroneDataPoint.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
             landmarkName = "init(data:)"
             landmarkType = "7">
          </BreakpointContent>

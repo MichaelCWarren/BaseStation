@@ -54,7 +54,9 @@ struct DroneDataPoint : Identifiable
     var home_latitude: Int32 = 0
     var home_longitude: Int32 = 0
     var home_altitude_meters: Int32 = 0
-    var rssi: Int8 = 0
+    var lora_rssi: Int8 = 0
+    var flight_mode: UInt16 = 0
+    var transmitter_rssi: uint8 = 0
     
     var armingStatusText: (String, Color) {
         if armingStatus & (1 << 15) > 0 {
@@ -68,6 +70,71 @@ struct DroneDataPoint : Identifiable
         } else {
             return ("READY", Color.green)
         }
+    }
+    
+    var flightModeText: String {
+        var modes: [String] = []
+        
+        var flightMode = Int(flight_mode)
+        var tenThousands: Int = flightMode / 10000
+        flightMode -= tenThousands * 10000
+        var thousands: Int = flightMode / 1000
+        flightMode -= thousands * 1000
+        var hundreds: Int = flightMode / 100
+        flightMode -= hundreds * 100
+        var tens: Int = flightMode / 10
+        
+//        // ten thousands column
+//        if (FLIGHT_MODE(FLAPERON))
+//            tmpi += 10000;
+//        if (FLIGHT_MODE(FAILSAFE_MODE))
+//            tmpi += 40000;
+//        else if (FLIGHT_MODE(AUTO_TUNE)) // intentionally reverse order and 'else-if' to prevent 16-bit overflow
+//            tmpi += 20000;
+        if(tenThousands >= 4) { modes.append("FAILSAFE"); tenThousands -= 4; }
+        if(tenThousands >= 2) { modes.append("AUTO_TUNE"); tenThousands -= 2; }
+        if(tenThousands == 1) { modes.append("FLAPERON") }
+        
+        // thousands column
+//        if (FLIGHT_MODE(NAV_RTH_MODE))
+//            tmpi += 1000;
+//        if (FLIGHT_MODE(NAV_COURSE_HOLD_MODE)) // intentionally out of order and 'else-ifs' to prevent column overflow
+//            tmpi += 8000;
+//        else if (FLIGHT_MODE(NAV_WP_MODE))
+//            tmpi += 2000;
+//        else if (FLIGHT_MODE(HEADFREE_MODE))
+//            tmpi += 4000;
+        
+        if(thousands >= 8) { modes.append("NAV_COURSE_HOLD"); thousands -= 8; }
+        if(thousands >= 4) { modes.append("HEADFREE"); thousands -= 4;  }
+        if(thousands >= 2) { modes.append("NAV_WP"); thousands -= 2; }
+        if(thousands == 1) { modes.append("NAV_RTH"); }
+        
+        // hundreds column
+//        if (FLIGHT_MODE(HEADING_MODE))
+//            tmpi += 100;
+//        if (FLIGHT_MODE(NAV_ALTHOLD_MODE))
+//            tmpi += 200;
+//        if (FLIGHT_MODE(NAV_POSHOLD_MODE))
+//            tmpi += 400;
+
+        if(hundreds >= 4) { modes.append("NAV_POS_HOLD"); hundreds -= 4; }
+        if(hundreds >= 2) { modes.append("NAV_ALT_HOLD"); hundreds -= 2; }
+        if(hundreds == 1) { modes.append("HEADING"); }
+        
+        // tens column
+//        if (FLIGHT_MODE(ANGLE_MODE))
+//            tmpi += 10;
+//        if (FLIGHT_MODE(HORIZON_MODE))
+//            tmpi += 20;
+//        if (FLIGHT_MODE(MANUAL_MODE))
+//            tmpi += 40;
+
+        if(tens >= 4) { modes.append("MANUAL"); tens -= 4; }
+        if(tens >= 2) { modes.append("HORIZON"); tens -= 2; }
+        if(tens == 1) { modes.append("ANGLE"); }
+    
+        return modes.joined(separator: "/")
     }
     
     var formattedOnTime: String {
@@ -167,23 +234,25 @@ struct DroneDataPoint : Identifiable
         read(val: &home_latitude, data: data, index: &index)
         read(val: &home_longitude, data: data, index: &index)
         read(val: &home_altitude_meters, data: data, index: &index)
-        read(val: &rssi, data: data, index: &index)
+        read(val: &lora_rssi, data: data, index: &index)
+        read(val: &flight_mode, data: data, index: &index)
+        read(val: &transmitter_rssi, data: data, index: &index)
     }
    
     func read(val: inout UInt32, data: [UInt8], index: inout Int) {
-        val = UInt32(data[index++]) << 24 | UInt32(data[index++]) << 16 | UInt32(data[index++]) << 8 | UInt32(data[index++])
+        val = UInt32(data[index++]) |  UInt32(data[index++]) << 8 | UInt32(data[index++]) << 16 | UInt32(data[index++]) << 24
     }
     
     func read(val: inout Int32, data: [UInt8], index: inout Int) {
-        val = Int32(data[index++]) << 24 | Int32(data[index++]) << 16 | Int32(data[index++]) << 8 | Int32(data[index++])
+        val = Int32(data[index++]) | Int32(data[index++]) << 8 | Int32(data[index++]) << 16 | Int32(data[index++]) << 24
     }
     
     func read(val: inout Int16, data: [UInt8], index: inout Int) {
-        val = Int16(data[index++]) << 8 | Int16(data[index++])
+        val = Int16(data[index++]) | Int16(data[index++]) << 8
     }
     
     func read(val: inout UInt16, data: [UInt8], index: inout Int) {
-        val = UInt16(data[index++]) << 8 | UInt16(data[index++])
+        val = UInt16(data[index++]) | UInt16(data[index++]) << 8
     }
     
     func read(val: inout Int8, data: [UInt8], index: inout Int) {
