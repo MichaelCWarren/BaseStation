@@ -18,10 +18,16 @@ struct ContentView: View {
             if let dataPoint = viewModel.currentDroneDataPoint {
                 VStack {
                     HStack {
+                       
+                        
                         Grid {
                             GridRow {
-                                Text("RSSI:").font(.title2).gridColumnAlignment(.trailing)
-                                Text("\(dataPoint.rssi)").font(.title2).gridColumnAlignment(.leading)
+                                Text("LoRa:").font(.title2).gridColumnAlignment(.trailing)
+                                Text("\(dataPoint.lora_rssi)").font(.title2).gridColumnAlignment(.leading)
+                            }
+                            GridRow {
+                                Text("TX:").font(.title2).gridColumnAlignment(.trailing)
+                                Text("\(dataPoint.transmitter_rssi)").font(.title2).gridColumnAlignment(.leading)
                             }
                         }
                         
