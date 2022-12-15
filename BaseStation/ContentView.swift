@@ -281,7 +281,7 @@ struct ContentView: View {
                                     Grid {
                                         GridRow {
                                             Text("Lat/Long").gridColumnAlignment(.trailing)
-                                            Text("\(droneDataPoint.home_latitude), \(droneDataPoint.home_longitude)").gridColumnAlignment(.trailing)
+                                            Text("\(viewModel.homeLatitude), \(viewModel.homeLongitude)").gridColumnAlignment(.trailing)
                                         }
                                         GridRow {
                                             Text("Altitude").gridColumnAlignment(.trailing)
