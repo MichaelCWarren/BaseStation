@@ -34,6 +34,7 @@ struct ContentView: View {
                             ).foregroundStyle(by: .value("Source", dp.name))
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
                             .chartXAxisLabel("Time (seconds)")
+                            .chartYScale(domain: -5...200, type: ScaleType.linear)
                             .chartYAxisLabel("Altitude (meters)")
                     }
                     VStack {
@@ -45,6 +46,7 @@ struct ContentView: View {
                             )
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
                             .chartXAxisLabel("Time (seconds)")
+                            .chartYScale(domain: 0...25, type: ScaleType.linear)
                             .chartYAxisLabel("Speed (m/s)")
                     }
                     
@@ -57,6 +59,7 @@ struct ContentView: View {
                             ).foregroundStyle(by: .value("Axis", dp.name))
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
                             .chartXAxisLabel("Time (seconds)")
+                            .chartYScale(domain: -720...720, type: ScaleType.linear)
                             .chartYAxisLabel("Angular Velocity (deg/sec)")
                     }
                     
@@ -69,6 +72,7 @@ struct ContentView: View {
                             ).foregroundStyle(by: .value("Axis", dp.name))
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
                             .chartXAxisLabel("Time (seconds)")
+                            .chartYScale(domain: -1...1, type: ScaleType.linear)
                             .chartYAxisLabel("Acceleration (g)")
                     }
                 }.frame(height: metrics.size.height * 0.35)
@@ -343,7 +347,7 @@ struct ContentView: View {
                         }
                         
                         Spacer()
-                    }.font(Font.body).padding(15)
+                    }.font(Font.caption).padding(15)
                 }
             }.padding(10)
         }

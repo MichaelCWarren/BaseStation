@@ -98,57 +98,56 @@ class ViewModel : DataStore, ObservableObject {
             let array = [UInt8](self._data!)
             
             DispatchQueue.main.async {
-                withAnimation {
-                    let droneDataPoint = DroneDataPoint(data: array)
-                    self.add(data: droneDataPoint)
-                    
-                    self.currentDroneDataPoint = droneDataPoint
-                    
-                    self.throttle = CGFloat((Float(droneDataPoint.rx_throttle) - 1000.0) / 1000.0)
-                    self.yaw = CGFloat((Float(droneDataPoint.rx_yaw) - 1000.0) / 1000.0)
-                    self.pitch = CGFloat((Float(droneDataPoint.rx_pitch) - 1000.0) / 1000.0)
-                    self.roll = CGFloat((Float(droneDataPoint.rx_roll) - 1000.0) / 1000.0)
-                    
-                    self.droneLatitude = Double(droneDataPoint.gps_latitude) / Double(10000000)
-                    self.droneLongitude = Double(droneDataPoint.gps_longitude) / Double(10000000)
+                
+                let droneDataPoint = DroneDataPoint(data: array)
+                self.add(data: droneDataPoint)
+                
+                self.currentDroneDataPoint = droneDataPoint
+                
+                self.throttle = CGFloat((Float(droneDataPoint.rx_throttle) - 1000.0) / 1000.0)
+                self.yaw = CGFloat((Float(droneDataPoint.rx_yaw) - 1000.0) / 1000.0)
+                self.pitch = CGFloat((Float(droneDataPoint.rx_pitch) - 1000.0) / 1000.0)
+                self.roll = CGFloat((Float(droneDataPoint.rx_roll) - 1000.0) / 1000.0)
+                
+                self.droneLatitude = Double(droneDataPoint.gps_latitude) / Double(10000000)
+                self.droneLongitude = Double(droneDataPoint.gps_longitude) / Double(10000000)
 
-                    self.homeLatitude = Double(droneDataPoint.home_latitude) / Double(10000000)
-                    self.homeLongitude = Double(droneDataPoint.home_longitude) / Double(10000000)
-                    
-                    var updated = false
-                    
-                    if self.droneLatitude != 0 {
-                        let newDroneLocation = CLLocationCoordinate2D(latitude: self.droneLatitude, longitude: self.droneLongitude)
-                        if self.droneAnnotation.coordinate.latitude != newDroneLocation.latitude || self.droneAnnotation.coordinate.longitude != newDroneLocation.longitude {
-                            updated = true
-                            self.droneAnnotation.coordinate = newDroneLocation
-                        }
+                self.homeLatitude = Double(droneDataPoint.home_latitude) / Double(10000000)
+                self.homeLongitude = Double(droneDataPoint.home_longitude) / Double(10000000)
+                
+                var updated = false
+                
+                if self.droneLatitude != 0 {
+                    let newDroneLocation = CLLocationCoordinate2D(latitude: self.droneLatitude, longitude: self.droneLongitude)
+                    if self.droneAnnotation.coordinate.latitude != newDroneLocation.latitude || self.droneAnnotation.coordinate.longitude != newDroneLocation.longitude {
+                        updated = true
+                        self.droneAnnotation.coordinate = newDroneLocation
                     }
-                    
-                    if self.homeLatitude != 0 {
-                        let newHomeLocation = CLLocationCoordinate2D(latitude: self.homeLatitude, longitude: self.homeLongitude)
-                        if self.homeAnnotation.coordinate.latitude != newHomeLocation.latitude || self.homeAnnotation.coordinate.longitude != newHomeLocation.longitude {
-                            updated = true
-                            self.homeAnnotation.coordinate = newHomeLocation
-                        }
+                }
+                
+                if self.homeLatitude != 0 {
+                    let newHomeLocation = CLLocationCoordinate2D(latitude: self.homeLatitude, longitude: self.homeLongitude)
+                    if self.homeAnnotation.coordinate.latitude != newHomeLocation.latitude || self.homeAnnotation.coordinate.longitude != newHomeLocation.longitude {
+                        updated = true
+                        self.homeAnnotation.coordinate = newHomeLocation
                     }
-                    
-                    
-                    let (text, color) = droneDataPoint.armingStatusText
-                    self.armingStatus = text
-                    self.armingStatusColor = color
-                    
-                    self.isGPSActive = droneDataPoint.status & (1 << 2) > 0
-                    self.isBaroActive = droneDataPoint.status & (1 << 3) > 0
-                    self.isCompassActive = droneDataPoint.status & (1 << 4) > 0
-                    self.isAccelActive = droneDataPoint.status & (1 << 5) > 0
-                    self.isGyroActive = droneDataPoint.status & (1 << 6) > 0
-                    
-                    if self.updateRegion && updated {
-                        //throw this result away, sorta
-                        let _ = self.getRegion(coord1: self.homeAnnotation.coordinate, coord2: self.userLocation)
-                        self.region = self.getRegion(coord1: self.droneAnnotation.coordinate, coord2: self.userLocation)
-                    }
+                }
+                
+                
+                let (text, color) = droneDataPoint.armingStatusText
+                self.armingStatus = text
+                self.armingStatusColor = color
+                
+                self.isGPSActive = droneDataPoint.status & (1 << 2) > 0
+                self.isBaroActive = droneDataPoint.status & (1 << 3) > 0
+                self.isCompassActive = droneDataPoint.status & (1 << 4) > 0
+                self.isAccelActive = droneDataPoint.status & (1 << 5) > 0
+                self.isGyroActive = droneDataPoint.status & (1 << 6) > 0
+                
+                if self.updateRegion && updated {
+                    //throw this result away, sorta
+                    let _ = self.getRegion(coord1: self.homeAnnotation.coordinate, coord2: self.userLocation)
+                    self.region = self.getRegion(coord1: self.droneAnnotation.coordinate, coord2: self.userLocation)
                 }
             }
         }
