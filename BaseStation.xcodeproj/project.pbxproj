@@ -24,6 +24,7 @@
 		489C5FDA293907D800BE0E1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 489C5FD9293907D800BE0E1A /* Assets.xcassets */; };
 		489C5FDD293907D800BE0E1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 489C5FDC293907D800BE0E1A /* Preview Assets.xcassets */; };
 		489C5FE5293907EE00BE0E1A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489C5FE4293907EE00BE0E1A /* ViewModel.swift */; };
+		48E4C74F2953E7600007990E /* ArtificialHorizon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E4C74E2953E7600007990E /* ArtificialHorizon.swift */; };
 		48EC1BD5293D420900011BEB /* DroneMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EC1BD4293D420900011BEB /* DroneMapView.swift */; };
 		48EC1BD6293D420900011BEB /* DroneMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EC1BD4293D420900011BEB /* DroneMapView.swift */; };
 		48EC1BD9293D505B00011BEB /* MacOSMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EC1BD8293D505B00011BEB /* MacOSMapView.swift */; };
@@ -47,6 +48,7 @@
 		489C5FDC293907D800BE0E1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		489C5FDE293907D800BE0E1A /* BaseStation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BaseStation.entitlements; sourceTree = "<group>"; };
 		489C5FE4293907EE00BE0E1A /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		48E4C74E2953E7600007990E /* ArtificialHorizon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtificialHorizon.swift; sourceTree = "<group>"; };
 		48EC1BD4293D420900011BEB /* DroneMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneMapView.swift; sourceTree = "<group>"; };
 		48EC1BD8293D505B00011BEB /* MacOSMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSMapView.swift; sourceTree = "<group>"; };
 		48EC1BDA293D507000011BEB /* iOSMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSMapView.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				489C5FDE293907D800BE0E1A /* BaseStation.entitlements */,
 				489C5FDB293907D800BE0E1A /* Preview Content */,
 				48038E122939874A00107B26 /* Joystick.swift */,
+				48E4C74E2953E7600007990E /* ArtificialHorizon.swift */,
 			);
 			path = BaseStation;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48038E132939874A00107B26 /* Joystick.swift in Sources */,
+				48E4C74F2953E7600007990E /* ArtificialHorizon.swift in Sources */,
 				489C5FD8293907D600BE0E1A /* ContentView.swift in Sources */,
 				48038E0A293940F500107B26 /* DataExtensions.swift in Sources */,
 				48EC1BD9293D505B00011BEB /* MacOSMapView.swift in Sources */,

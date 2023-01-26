@@ -11,7 +11,7 @@ import MapKit
 
 struct DataPoint<T> : Identifiable {
     var id: UUID = UUID()
-    var time: UInt32
+    var time: Double
     var name: String
     var value: T
 }
@@ -144,43 +144,43 @@ struct DroneDataPoint : Identifiable
     }
     
     var gpsAltitudeDataPoint: DataPoint<Int32> {
-        return DataPoint(time: onTime, name: "GPS", value: Int32(gps_altitude_meters) - Int32(home_altitude_meters))
+        return DataPoint(time: Double(onTime) / 1000.0, name: "GPS", value: Int32(gps_altitude_meters) - Int32(home_altitude_meters))
     }
     
     var baroAltitudeDataPoint: DataPoint<Int32> {
-        return DataPoint(time: onTime, name: "Barometer", value: baro_altitude_meters)
+        return DataPoint(time: Double(onTime) / 1000.0, name: "Barometer", value: baro_altitude_meters)
     }
     
     var calculatedAltitudeDataPoint: DataPoint<Int32> {
-        return DataPoint(time: onTime, name: "iNav", value: inav_z_position)
+        return DataPoint(time: Double(onTime) / 1000.0, name: "iNav", value: inav_z_position)
     }
     
     var gyroXDataPoint: DataPoint<Int16> {
-        return DataPoint(time: onTime, name: "X", value: gyro_x)
+        return DataPoint(time: Double(onTime) / 1000.0, name: "X", value: gyro_x)
     }
     
     var gyroYDataPoint: DataPoint<Int16> {
-        return DataPoint(time: onTime, name: "Y", value: gyro_y)
+        return DataPoint(time: Double(onTime) / 1000.0, name: "Y", value: gyro_y)
     }
     
     var gyroZDataPoint: DataPoint<Int16> {
-        return DataPoint(time: onTime, name: "Z", value: gyro_z)
+        return DataPoint(time: Double(onTime) / 1000.0, name: "Z", value: gyro_z)
     }
     
     var speedDataPoint: DataPoint<Int16> {
-        return DataPoint(time: onTime, name: "Speed", value: gps_groundSpeed)
+        return DataPoint(time: Double(onTime) / 1000.0, name: "Speed", value: gps_groundSpeed)
     }
     
-    var accelXDataPoint: DataPoint<Int16> {
-        return DataPoint(time: onTime, name: "X", value: acc_x)
+    var accelXDataPoint: DataPoint<Double> {
+        return DataPoint(time: Double(onTime) / 1000.0, name: "X", value: Double(acc_x) / 512.0)
     }
     
-    var accelYDataPoint: DataPoint<Int16> {
-        return DataPoint(time: onTime, name: "Y", value: acc_y)
+    var accelYDataPoint: DataPoint<Double> {
+        return DataPoint(time: Double(onTime) / 1000.0, name: "Y", value: Double(acc_y) / 512.0)
     }
     
-    var accelZDataPoint: DataPoint<Int16> {
-        return DataPoint(time: onTime, name: "Z", value: acc_z)
+    var accelZDataPoint: DataPoint<Double> {
+        return DataPoint(time: Double(onTime) / 1000.0, name: "Z", value: Double(acc_z) / 512.0)
     }
     
     var gpsLocation: CLLocationCoordinate2D {

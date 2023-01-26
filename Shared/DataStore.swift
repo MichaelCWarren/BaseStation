@@ -21,7 +21,7 @@ class DataStore : NSObject {
     @Published var altitudeDataPoints: [DataPoint<Int32>] = []
     @Published var gyroDataPoints: [DataPoint<Int16>] = []
     @Published var speedDataPoints: [DataPoint<Int16>] = []
-    @Published var accelDataPoints: [DataPoint<Int16>] = []
+    @Published var accelDataPoints: [DataPoint<Double>] = []
     @Published var fromTime = 0
     @Published var toTime = 0
     @Published var history: [CLLocationCoordinate2D] = []
@@ -88,28 +88,22 @@ class DataStore : NSObject {
             }
         }
         
-        altitudeDataPoints.append(_data.gpsAltitudeDataPoint)
-        altitudeDataPoints.append(_data.baroAltitudeDataPoint)
-        altitudeDataPoints.append(_data.calculatedAltitudeDataPoint)
+        altitudeDataPoints.append(contentsOf: [_data.gpsAltitudeDataPoint, _data.baroAltitudeDataPoint, _data.calculatedAltitudeDataPoint])
         clamp(array: &altitudeDataPoints, earlyLimit: earlyLimit)
         
-        gyroDataPoints.append(_data.gyroXDataPoint)
-        gyroDataPoints.append(_data.gyroYDataPoint)
-        gyroDataPoints.append(_data.gyroZDataPoint)
+        gyroDataPoints.append(contentsOf: [_data.gyroXDataPoint, _data.gyroYDataPoint, _data.gyroZDataPoint])
         clamp(array: &gyroDataPoints, earlyLimit: earlyLimit)
         
         speedDataPoints.append(_data.speedDataPoint)
         clamp(array: &speedDataPoints, earlyLimit: earlyLimit)
         
-        accelDataPoints.append(_data.accelXDataPoint)
-        accelDataPoints.append(_data.accelYDataPoint)
-        accelDataPoints.append(_data.accelZDataPoint)
+        accelDataPoints.append(contentsOf: [_data.accelXDataPoint, _data.accelYDataPoint, _data.accelZDataPoint] )
         clamp(array: &accelDataPoints, earlyLimit: earlyLimit)
     }
     
     func clamp<T>(array: inout [DataPoint<T>], earlyLimit: Int) {
         array.removeAll { dp in
-            dp.time < earlyLimit
+            dp.time < (Double(earlyLimit) / 1000.0)
         }
     }
 }

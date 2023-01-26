@@ -20,7 +20,7 @@ struct ContentView: View {
         let period = Int(viewModel.updatePeriod * 1000)
         return "\(period) ms"
     }
-
+    
     var body: some View {
         GeometryReader { metrics in
             Grid(horizontalSpacing: 20, verticalSpacing: 20) {
@@ -29,7 +29,7 @@ struct ContentView: View {
                         Text("Altitude").font(.title)
                         Chart(viewModel.altitudeDataPoints) { dp in
                             LineMark(
-                                x: .value("Time", Float(dp.time) / 1000.0),
+                                x: .value("Time", dp.time),
                                 y: .value("Altitude", dp.value)
                             ).foregroundStyle(by: .value("Source", dp.name))
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
@@ -41,7 +41,7 @@ struct ContentView: View {
                         Text("Speed").font(.title)
                         Chart(viewModel.speedDataPoints) { dp in
                             LineMark(
-                                x: .value("Time", Float(dp.time) / 1000.0) ,
+                                x: .value("Time", dp.time) ,
                                 y: .value("m/s", dp.value)
                             )
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
@@ -54,7 +54,7 @@ struct ContentView: View {
                         Text("Gyroscope").font(.title)
                         Chart(viewModel.gyroDataPoints) { dp in
                             LineMark(
-                                x: .value("Time", Float(dp.time) / 1000.0) ,
+                                x: .value("Time", dp.time) ,
                                 y: .value("Value", dp.value)
                             ).foregroundStyle(by: .value("Axis", dp.name))
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
@@ -67,7 +67,7 @@ struct ContentView: View {
                         Text("Accelerometer").font(.title)
                         Chart(viewModel.accelDataPoints) { dp in
                             LineMark(
-                                x: .value("Time", Float(dp.time) / 1000.0),
+                                x: .value("Time", dp.time),
                                 y: .value("Value", Float(dp.value) / 512.0)
                             ).foregroundStyle(by: .value("Axis", dp.name))
                         }.chartXScale(domain: viewModel.dataRange, type: ScaleType.linear)
@@ -80,59 +80,58 @@ struct ContentView: View {
                 GridRow {
                     VStack {
                         Spacer()
-                        VStack {
-                            Text("Joysticks").font(.title)
-                            HStack {
-                                Spacer()
-                                Joystick(width: 200, x: viewModel.yaw, y: 1 - viewModel.throttle)
-                                Spacer()
-                                Joystick(width: 200, x: viewModel.roll, y: 1 - viewModel.pitch)
-                                Spacer()
-                            }
-                        }
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(viewModel.armingStatusColor.opacity(0.5))
+                            .overlay {
+                                Text(viewModel.armingStatus)
+                                    .foregroundColor(Color.white)
+                                    .font(.title)
+                            }.frame(minWidth: 1, maxWidth: 410, maxHeight: 50)
+                        
                         Spacer()
-                        VStack {
+                        
+                        HStack {
+                            Image(systemName: "location.viewfinder")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(viewModel.isGPSActive ? Color.green : Color.gray)
+                                .padding(10)
+                            
+                            Image(systemName: "gyroscope")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(viewModel.isGyroActive ? Color.green : Color.gray)
+                                .padding(10)
+                            
+                            Image(systemName: "barometer")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(viewModel.isBaroActive ? Color.green : Color.gray)
+                                .padding(10)
+                            
+                            Image(systemName: "move.3d")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(viewModel.isAccelActive ? Color.green : Color.gray)
+                                .padding(10)
+                            
+                            Image(systemName: "safari")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(viewModel.isCompassActive ? Color.green : Color.gray)
+                                .padding(10)
+                        }
+                        
+                        Spacer()
+                
+                        ArtificialHorizon(width: 275, height: 275, roll: viewModel.attitudeRoll, pitch: viewModel.attitudePitch)
+                        
+                        Spacer()
+                        HStack {
                             Spacer()
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(viewModel.armingStatusColor.opacity(0.5))
-                                .overlay {
-                                    Text(viewModel.armingStatus)
-                                        .foregroundColor(Color.white)
-                                        .font(.title)
-                                }.frame(minWidth: 1, maxWidth: 410, maxHeight: 50)
-                                
+                            Joystick(width: 200, x: viewModel.yaw, y: 1 - viewModel.throttle)
                             Spacer()
-                            HStack {
-                                Image(systemName: "location.viewfinder")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(viewModel.isGPSActive ? Color.green : Color.gray)
-                                    .padding(10)
-                                
-                                Image(systemName: "gyroscope")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(viewModel.isGyroActive ? Color.green : Color.gray)
-                                    .padding(10)
-                                
-                                Image(systemName: "barometer")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(viewModel.isBaroActive ? Color.green : Color.gray)
-                                    .padding(10)
-                                
-                                Image(systemName: "move.3d")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(viewModel.isAccelActive ? Color.green : Color.gray)
-                                    .padding(10)
-                                
-                                Image(systemName: "safari")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(viewModel.isCompassActive ? Color.green : Color.gray)
-                                    .padding(10)
-                            }
+                            Joystick(width: 200, x: viewModel.roll, y: 1 - viewModel.pitch)
                             Spacer()
                         }
                         Spacer()
@@ -156,11 +155,11 @@ struct ContentView: View {
                                     Grid {
                                         GridRow {
                                             Text("Roll").gridColumnAlignment(.trailing)
-                                            Text("\(droneDataPoint.roll)").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.roll / 10)").gridColumnAlignment(.trailing)
                                         }
                                         GridRow {
                                             Text("Pitch").gridColumnAlignment(.trailing)
-                                            Text("\(droneDataPoint.pitch)").gridColumnAlignment(.trailing)
+                                            Text("\(droneDataPoint.pitch / 10)").gridColumnAlignment(.trailing)
                                         }
                                         GridRow {
                                             Text("Heading").gridColumnAlignment(.trailing)
@@ -269,7 +268,7 @@ struct ContentView: View {
                                         }
                                     }
                                 }
-                               
+                                
                             }
                             Group {
                                 Divider()
@@ -301,7 +300,7 @@ struct ContentView: View {
                                 HStack {
                                     Text("Flight Mode")
                                     Spacer()
-                                    Text("")
+                                    Text(droneDataPoint.flightModeText)
                                 }
                                 Divider()
                                 HStack {
